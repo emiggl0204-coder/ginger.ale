@@ -1,0 +1,11 @@
+# Variables de entorno (datos sensibles / específicos de cada máquina)
+.env
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs y temporales
+*.log
