@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ginger Ale | Escuela de Coctelería y Barismo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;scroll-behavior:smooth;}
+body{background:#111;color:#fff;line-height:1.6;}
+.skip-link{position:absolute;left:-9999px;top:auto;background:#1f4fff;color:white;padding:15px 25px;z-index:5000;text-decoration:none;font-weight:bold;border-radius:8px;}
+.skip-link:focus{left:20px;top:20px;}
+a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #FFD54F;outline-offset:4px;}
+header{position:fixed;top:0;left:0;width:100%;background:#0f0f0f;display:flex;justify-content:space-between;align-items:center;padding:18px 25px;box-shadow:0 3px 10px rgba(0,0,0,.5);z-index:1000;}
+.logo{font-size:28px;font-weight:bold;letter-spacing:2px;}
+nav{position:relative;}
+.menu-btn{width:48px;height:48px;font-size:26px;border:none;border-radius:8px;cursor:pointer;background:#1f4fff;color:white;transition:.3s;}
+.menu-btn:hover{background:#2740b9;}
+.dropdown{display:none;position:absolute;right:0;top:70px;background:#1b1b1b;border-radius:10px;width:240px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.4);list-style:none;}
+.dropdown.show{display:block;}
+.dropdown a{display:block;padding:16px;text-decoration:none;color:white;border-bottom:1px solid #333;transition:.3s;}
+.dropdown a:hover,.dropdown a:focus{background:#1f4fff;}
+.hero{height:100vh;background:url("https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1600&auto=format&fit=crop") center center/cover;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;position:relative;}
+.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.65);}
+.hero-content{position:relative;z-index:2;max-width:850px;}
+.hero h1{font-size:3rem;margin-bottom:20px;}
+.hero p{font-size:1.15rem;margin-bottom:35px;}
+.btn{display:inline-block;padding:15px 28px;background:#1f4fff;border:none;border-radius:8px;color:white;text-decoration:none;font-size:17px;cursor:pointer;transition:.3s;}
+.btn:hover,.btn:focus{background:#2740b9;transform:scale(1.05);}
+main{margin-top:80px;}
+section{padding:100px 20px;}
+.container{max-width:1200px;margin:auto;}
+.section-title{text-align:center;font-size:2.3rem;margin-bottom:40px;color:#3d7bff;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;}
+.card{background:#1c1c1c;border:1px solid #2f2f2f;border-radius:15px;overflow:hidden;transition:.3s;display:block;}
+.card:hover{transform:translateY(-8px);}
+.card img{width:100%;height:220px;object-fit:cover;display:block;}
+.card-content{padding:20px;}
+.card-content h3{margin-bottom:15px;}
+.card-content p{color:#ccc;margin-bottom:20px;}
+.video-wrapper{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.5);max-width:900px;margin:0 auto;}
+.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+figcaption{text-align:center;color:#ccc;margin-top:18px;max-width:700px;margin-left:auto;margin-right:auto;}
+form{max-width:700px;margin:40px auto 0;display:flex;flex-direction:column;gap:18px;}
+label{font-weight:bold;display:block;margin-bottom:6px;}
+input,select,textarea{width:100%;padding:12px;background:#222;border:1px solid #555;border-radius:8px;color:white;font-size:16px;}
+textarea{resize:vertical;min-height:130px;}
+input::placeholder,textarea::placeholder{color:#bbb;}
+.socials{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:30px;}
+.socials a{background:#1f4fff;padding:14px 24px;border-radius:8px;text-decoration:none;color:white;transition:.3s;}
+.socials a:hover,.socials a:focus{background:#2740b9;}
+footer{background:#0c0c0c;padding:35px;text-align:center;color:#999;}
+.error-msg{color:#ff6b6b;font-size:0.9rem;margin-top:-8px;display:none;}
+.error-msg.visible{display:block;}
+.modo-oscuro-toggle{position:fixed;bottom:30px;right:30px;z-index:999;background:#1f4fff;border:none;border-radius:50%;width:60px;height:60px;font-size:24px;cursor:pointer;color:white;box-shadow:0 4px 15px rgba(0,0,0,.5);transition:.3s;}
+.modo-oscuro-toggle:hover{transform:scale(1.1);}
+body.modo-claro{background:#f5f5f5;color:#222;}
+body.modo-claro header{background:#e0e0e0;}
+body.modo-claro .card{background:#fafafa;border-color:#ccc;}
+body.modo-claro .card-content p{color:#444;}
+body.modo-claro .dropdown{background:#eee;}
+body.modo-claro .dropdown a{color:#222;border-bottom:1px solid #aaa;}
+body.modo-claro footer{background:#ddd;color:#333;}
+body.modo-claro input,body.modo-claro select,body.modo-claro textarea{background:#fff;border-color:#999;color:#222;}
+body.modo-claro .section-title{color:#1f4fff;}
+body.modo-claro .hero::before{background:rgba(255,255,255,0.4);}
+body.modo-claro .hero h1, body.modo-claro .hero p{color:#111;}
+.galeria{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin:30px 0;}
+.galeria img{width:150px;height:150px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:.3s;}
+.galeria img:hover{border-color:#1f4fff;transform:scale(1.05);}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;}
+.lightbox.open{opacity:1;pointer-events:auto;}
+.lightbox img{max-width:90%;max-height:90%;border-radius:10px;box-shadow:0 0 40px rgba(0,0,0,.8);}
+.lightbox .cerrar{position:absolute;top:30px;right:40px;font-size:40px;color:white;cursor:pointer;font-weight:bold;}
+.lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:white;font-size:40px;padding:15px 20px;cursor:pointer;border-radius:8px;transition:.3s;}
+.lightbox .nav:hover{background:rgba(255,255,255,.4);}
+.lightbox .prev{left:20px;}
+.lightbox .next{right:20px;}
+.resumen-datos{background:#1c1c1c;padding:20px;border-radius:10px;margin-top:20px;max-width:700px;margin-left:auto;margin-right:auto;display:none;}
+.resumen-datos.visible{display:block;}
+.resumen-datos p{margin:5px 0;color:#ddd;}
+@media(max-width:768px){.hero h1{font-size:2.2rem;}
+.hero p{font-size:1rem;}
+.dropdown{width:95vw;right:0;}
+.section-title{font-size:2rem;}
+.galeria img{width:100px;height:100px;}
+.lightbox .nav{font-size:24px;padding:10px 14px;}
+.modo-oscuro-toggle{width:50px;height:50px;font-size:20px;bottom:20px;right:20px;}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+<header role="banner">
+<p class="logo"><span>GINGER ALE</span></p>
+<nav aria-label="Menú principal">
+<button class="menu-btn" id="menuButton" aria-label="Abrir menú de navegación" aria-controls="menu" aria-expanded="false">☰</button>
+<ul class="dropdown" id="menu" role="menu">
+<li role="none"><a href="#inicio" role="menuitem">Inicio</a></li>
+<li role="none"><a href="#cursos" role="menuitem">Cursos</a></li>
+<li role="none"><a href="#virtuales" role="menuitem">Cursos Virtuales</a></li>
+<li role="none"><a href="#profesores" role="menuitem">Profesores</a></li>
+<li role="none"><a href="#eventos" role="menuitem">Eventos</a></li>
+<li role="none"><a href="#productos" role="menuitem">Productos</a></li>
+<li role="none"><a href="#video" role="menuitem">Video</a></li>
+<li role="none"><a href="#contacto" role="menuitem">Contacto</a></li>
+</ul>
+</nav>
+</header>
+<main id="contenido">
+<section id="inicio" class="hero">
+<div class="hero-content">
+<h1>Escuela de Coctelería y Barismo</h1>
+<p>Formación profesional para bartenders, baristas y amantes del café. Aprendé mediante clases prácticas, equipamiento profesional y certificación.</p>
+<a href="#cursos" class="btn">Ver Cursos</a>
+</div>
+</section>
+<section id="cursos">
+<div class="container">
+<h2 class="section-title">Cursos Presenciales</h2>
+<div class="cards">
+<article class="card">
+<img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1fcef?q=80&w=1200&auto=format&fit=crop" alt="Barista preparando un café espresso en una máquina profesional">
+<div class="card-content"><h3>Barista Profesional</h3><p>Aprendé espresso, latte art, molienda, extracción, texturizado de leche y calibración de molinos.</p><button class="btn" type="button">Inscribirme</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1200&auto=format&fit=crop" alt="Bartender preparando un cóctel profesional detrás de una barra">
+<div class="card-content"><h3>Bartender Profesional</h3><p>Coctelería clásica, moderna, mixología, flair, servicio de barra y atención al cliente.</p><button class="btn" type="button">Inscribirme</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=1200&auto=format&fit=crop" alt="Grupo de estudiantes practicando técnicas de coctelería">
+<div class="card-content"><h3>Curso Intensivo</h3><p>Capacitación acelerada para comenzar a trabajar como bartender o barista en pocas semanas.</p><button class="btn" type="button">Inscribirme</button></div>
+</article>
+</div>
+</div>
+</section>
+<section id="virtuales">
+<div class="container">
+<h2 class="section-title">Cursos Virtuales</h2>
+<div class="cards">
+<article class="card">
+<img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="Alumno realizando un curso virtual de barismo desde una computadora">
+<div class="card-content"><h3>Barismo Online</h3><p>Aprendé desde cualquier lugar mediante clases grabadas, material descargable y acompañamiento de profesores.</p><button class="btn" type="button">Más información</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200&auto=format&fit=crop" alt="Preparación de un cóctel durante un curso virtual">
+<div class="card-content"><h3>Coctelería Online</h3><p>Aprende recetas, técnicas modernas, decoración y preparación paso a paso.</p><button class="btn" type="button">Más información</button></div>
+</article>
+</div>
+</div>
+</section>
+<section id="profesores">
+<div class="container">
+<h2 class="section-title">Nuestro Equipo</h2>
+<div class="cards">
+<article class="card">
+<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop" alt="Profesor de coctelería enseñando técnicas profesionales">
+<div class="card-content"><h3>Profesionales Certificados</h3><p>Nuestro equipo posee experiencia nacional e internacional en cafetería, coctelería, mixología y servicio gastronómico.</p></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop" alt="Instructor explicando técnicas de barismo">
+<div class="card-content"><h3>Clases Personalizadas</h3><p>Grupos reducidos para lograr un aprendizaje práctico, dinámico y con seguimiento permanente.</p></div>
+</article>
+</div>
+</div>
+</section>
+<section id="eventos">
+<div class="container">
+<h2 class="section-title">Barra Móvil y Eventos</h2>
+<div class="cards">
+<article class="card">
+<img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop" alt="Servicio de barra móvil en un evento empresarial">
+<div class="card-content"><h3>Eventos Sociales y Empresariales</h3><p>Servicio profesional para casamientos, cumpleaños, eventos corporativos y coffee break.</p><button class="btn" type="button">Solicitar Presupuesto</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=1200&auto=format&fit=crop" alt="Bartender preparando bebidas durante un evento">
+<div class="card-content"><h3>Eventos Personalizados</h3><p>Diseñamos una propuesta adaptada a cada cliente, incluyendo tragos exclusivos y decoración temática.</p><button class="btn" type="button">Consultar</button></div>
+</article>
+</div>
+</div>
+</section>
+<section id="productos">
+<div class="container">
+<h2 class="section-title">Productos e Insumos</h2>
+<div class="cards">
+<article class="card">
+<img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200&auto=format&fit=crop" alt="Kit profesional para bartender con coctelera y accesorios">
+<div class="card-content"><h3>Kit Bartender</h3><p>Coctelera, medidor, cuchara imperial, colador y accesorios profesionales.</p><button class="btn" type="button">Comprar</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop" alt="Máquina de café profesional para entrenamiento de baristas">
+<div class="card-content"><h3>Cafeteras</h3><p>Equipamiento profesional para cafeterías, escuelas y entrenamiento.</p><button class="btn" type="button">Comprar</button></div>
+</article>
+<article class="card">
+<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop" alt="Accesorios para preparación de café y barismo">
+<div class="card-content"><h3>Accesorios</h3><p>Jarras, tamper, molinos, vasos medidores y herramientas profesionales.</p><button class="btn" type="button">Comprar</button></div>
+</article>
+</div>
+</div>
+</section>
+<section id="video">
+<div class="container">
+<h2 class="section-title">Conocé Ginger Ale en Video</h2>
+<figure>
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/Y_rcvP8LJYc" title="Clase de coctelería - Curso profesional de bartender" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<figcaption>Un vistazo a las técnicas de coctelería que se enseñan en nuestros cursos: preparación, herramientas y servicio profesional de barra.</figcaption>
+</figure>
+</div>
+</section>
+<section id="contacto">
+<div class="container">
+<h2 class="section-title">Contacto</h2>
+<form id="formulario" aria-label="Formulario de contacto">
+<label for="nombre">Nombre completo</label>
+<input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellido" required>
+<div class="error-msg" id="error-nombre">Por favor ingresa tu nombre.</div>
+<label for="email">Correo electrónico</label>
+<input type="email" id="email" name="email" placeholder="tu@email.com" required>
+<div class="error-msg" id="error-email">Ingresa un correo válido (ej: usuario@dominio.com).</div>
+<label for="curso">Curso de interés</label>
+<select id="curso" name="curso" required>
+<option value="">Seleccioná una opción</option>
+<option value="barista">Barista Profesional</option>
+<option value="bartender">Bartender Profesional</option>
+<option value="intensivo">Curso Intensivo</option>
+<option value="virtual">Cursos Virtuales</option>
+<option value="eventos">Barra Móvil y Eventos</option>
+</select>
+<label for="mensaje">Mensaje</label>
+<textarea id="mensaje" name="mensaje" placeholder="Contanos qué necesitás" required></textarea>
+<button class="btn" type="submit">Enviar consulta</button>
+</form>
+<div id="resumen" class="resumen-datos"></div>
+<nav class="socials" aria-label="Redes sociales">
+<a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+<a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+<a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+</nav>
+</div>
+</section>
+<section id="galeria" style="padding-top:40px;">
+<div class="container">
+<h2 class="section-title">Galería</h2>
+<div class="galeria" id="galeria-contenedor">
+<img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=400&auto=format&fit=crop" alt="Coctelería 1" data-index="0">
+<img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1fcef?q=80&w=400&auto=format&fit=crop" alt="Café 1" data-index="1">
+<img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=400&auto=format&fit=crop" alt="Coctelería 2" data-index="2">
+<img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=400&auto=format&fit=crop" alt="Café 2" data-index="3">
+</div>
+</div>
+</section>
+</main>
+<footer><p>&copy; 2026 Ginger Ale - Escuela de Coctelería y Barismo. Todos los derechos reservados.</p></footer>
+<div class="lightbox" id="lightbox">
+<span class="cerrar" id="cerrar-lightbox">&times;</span>
+<button class="nav prev" id="prev-img">&#10094;</button>
+<button class="nav next" id="next-img">&#10095;</button>
+<img id="lightbox-img" src="" alt="Imagen ampliada">
+</div>
+<button class="modo-oscuro-toggle" id="toggle-modo" aria-label="Cambiar tema">🌓</button>
+<script>
+// 1. Saludo al cargar
+window.addEventListener('load', function() {
+alert('¡Bienvenido a Ginger Ale! Escuela de Coctelería y Barismo.');
+});
+// 2. Validación formulario con mensajes personalizados
+const form = document.getElementById('formulario');
+const nombreInput = document.getElementById('nombre');
+const emailInput = document.getElementById('email');
+const errorNombre = document.getElementById('error-nombre');
+const errorEmail = document.getElementById('error-email');
+const resumenDiv = document.getElementById('resumen');
+function validarEmail(email) {
+return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function mostrarError(input, errorEl, mensaje) {
+if (input.value.trim() === '' || (input.type === 'email' && !validarEmail(input.value))) {
+errorEl.textContent = mensaje;
+errorEl.classList.add('visible');
+return false;
+} else {
+errorEl.classList.remove('visible');
+return true;
+}
+}
+nombreInput.addEventListener('blur', function() {
+mostrarError(this, errorNombre, 'Por favor ingresa tu nombre.');
+});
+emailInput.addEventListener('blur', function() {
+mostrarError(this, errorEmail, 'Ingresa un correo válido (ej: usuario@dominio.com).');
+});
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+const nombreOk = mostrarError(nombreInput, errorNombre, 'Por favor ingresa tu nombre.');
+const emailOk = mostrarError(emailInput, errorEmail, 'Ingresa un correo válido (ej: usuario@dominio.com).');
+if (nombreOk && emailOk && form.checkValidity()) {
+const nombre = nombreInput.value.trim();
+const email = emailInput.value.trim();
+const curso = document.getElementById('curso').value;
+const mensaje = document.getElementById('mensaje').value.trim();
+const opciones = {
+'barista': 'Barista Profesional',
+'bartender': 'Bartender Profesional',
+'intensivo': 'Curso Intensivo',
+'virtual': 'Cursos Virtuales',
+'eventos': 'Barra Móvil y Eventos'
+};
+const cursoTexto = opciones[curso] || 'No especificado';
+resumenDiv.innerHTML = `<h3 style="color:#3d7bff;">Resumen de tu consulta</h3>
+<p><strong>Nombre:</strong> ${nombre}</p>
+<p><strong>Email:</strong> ${email}</p>
+<p><strong>Curso de interés:</strong> ${cursoTexto}</p>
+<p><strong>Mensaje:</strong> ${mensaje || 'No ingresó mensaje'}</p>
+<button class="btn" id="cerrar-resumen" type="button">Cerrar resumen</button>`;
+resumenDiv.classList.add('visible');
+document.getElementById('cerrar-resumen').addEventListener('click', function() {
+resumenDiv.classList.remove('visible');
+});
+alert('Gracias por contactarte con Ginger Ale.\n\nTu solicitud fue enviada correctamente.');
+form.reset();
+} else {
+form.reportValidity();
+}
+});
+// 3. Fecha y hora en tiempo real
+function mostrarFechaHora() {
+const ahora = new Date();
+const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+const fechaStr = ahora.toLocaleDateString('es-ES', opciones);
+// Mostrar en footer o en un lugar sutil
+const footer = document.querySelector('footer p');
+if (footer && !footer.querySelector('.fecha-hora')) {
+const span = document.createElement('span');
+span.className = 'fecha-hora';
+span.style.display = 'block';
+span.style.marginTop = '8px';
+span.style.fontSize = '0.9rem';
+span.style.color = '#aaa';
+footer.appendChild(span);
+}
+const span = document.querySelector('.fecha-hora');
+if (span) span.textContent = '🕒 ' + fechaStr;
+}
+mostrarFechaHora();
+setInterval(mostrarFechaHora, 1000);
+// 4. Menú interactivo (ya existe toggle)
+const menuButton = document.getElementById("menuButton");
+const menu = document.getElementById("menu");
+function toggleMenu() {
+const expanded = menuButton.getAttribute("aria-expanded") === "true";
+menuButton.setAttribute("aria-expanded", !expanded);
+menu.classList.toggle("show");
+}
+menuButton.addEventListener("click", toggleMenu);
+menuButton.addEventListener("keydown", function(e) {
+if (e.key === "Enter" || e.key === " ") {
+e.preventDefault();
+toggleMenu();
+}
+});
+document.addEventListener("keydown", function(e) {
+if (e.key === "Escape") {
+menu.classList.remove("show");
+menuButton.setAttribute("aria-expanded", "false");
+menuButton.focus();
+}
+});
+document.addEventListener("click", function(e) {
+if (!menu.contains(e.target) && !menuButton.contains(e.target)) {
+menu.classList.remove("show");
+menuButton.setAttribute("aria-expanded", "false");
+}
+});
+document.querySelectorAll(".dropdown a").forEach(link => {
+link.addEventListener("click", () => {
+menu.classList.remove("show");
+menuButton.setAttribute("aria-expanded", "false");
+});
+});
+// 5. Galería de imágenes con lightbox y navegación
+const imagenesGaleria = document.querySelectorAll('.galeria img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const cerrarLightbox = document.getElementById('cerrar-lightbox');
+const prevBtn = document.getElementById('prev-img');
+const nextBtn = document.getElementById('next-img');
+let indiceActual = 0;
+function abrirLightbox(index) {
+indiceActual = index;
+lightboxImg.src = imagenesGaleria[index].src.replace('w=400', 'w=1200');
+lightbox.classList.add('open');
+}
+function cerrarLightboxFn() {
+lightbox.classList.remove('open');
+}
+function cambiarImagen(delta) {
+const total = imagenesGaleria.length;
+indiceActual = (indiceActual + delta + total) % total;
+lightboxImg.src = imagenesGaleria[indiceActual].src.replace('w=400', 'w=1200');
+}
+imagenesGaleria.forEach((img, i) => {
+img.addEventListener('click', () => abrirLightbox(i));
+});
+cerrarLightbox.addEventListener('click', cerrarLightboxFn);
+lightbox.addEventListener('click', function(e) {
+if (e.target === this) cerrarLightboxFn();
+});
+prevBtn.addEventListener('click', function(e) { e.stopPropagation(); cambiarImagen(-1); });
+nextBtn.addEventListener('click', function(e) { e.stopPropagation(); cambiarImagen(1); });
+document.addEventListener('keydown', function(e) {
+if (!lightbox.classList.contains('open')) return;
+if (e.key === 'Escape') cerrarLightboxFn();
+if (e.key === 'ArrowLeft') cambiarImagen(-1);
+if (e.key === 'ArrowRight') cambiarImagen(1);
+});
+// 6. Cambiar tema (modo oscuro/claro)
+const toggleTema = document.getElementById('toggle-modo');
+toggleTema.addEventListener('click', function() {
+document.body.classList.toggle('modo-claro');
+this.textContent = document.body.classList.contains('modo-claro') ? '🌙' : '🌓';
+});
+// 7. Resumen ya implementado en el formulario
+// Botones demostración
+document.querySelectorAll(".btn").forEach(boton => {
+if (boton.type === "button") {
+boton.addEventListener("click", function() {
+const texto = this.textContent.trim();
+switch (texto) {
+case "Inscribirme": alert("Inscripción iniciada correctamente."); break;
+case "Más información": alert("Próximamente podrás acceder a toda la información del curso."); break;
+case "Comprar": alert("Producto agregado correctamente."); break;
+case "Consultar": alert("Gracias por tu consulta."); break;
+case "Solicitar Presupuesto": document.getElementById("contacto").scrollIntoView({ behavior: "smooth" }); break;
+}
+});
+}
+});
+// Navegación suave
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener("click", function(e) {
+e.preventDefault();
+const destino = document.querySelector(this.getAttribute("href"));
+if (destino) destino.scrollIntoView({ behavior: "smooth" });
+});
+});
+</script>
+</body>
+</html>
