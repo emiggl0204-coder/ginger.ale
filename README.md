@@ -12,6 +12,7 @@ Sitio web de una escuela de coctelería y barismo con cursos presenciales y virt
 
 https://www.figma.com/design/tLyz7QYzLT9PDThEoiU3nx/PaginaWeb?node-id=0-1&t=xLdbdF9xRUNLbLg5-1
 
+
 ## Tecnologías utilizadas
 
 HTML5 · CSS3 · JavaScript (vanilla) · PHP 8.x · MySQL · Laragon · HeidiSQL · Git y GitHub
